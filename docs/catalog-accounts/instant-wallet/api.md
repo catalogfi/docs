@@ -37,7 +37,7 @@ Funding an Instant Wallet places a temporary hold on the funds as the Guardian d
 1. The user constructs a funding transaction which sends funds to the wallet address she got from creation. If this is not a segwit transaction, they will need to sign this as the signature will affect the transaction hash. The user *does not* need to submit the transaction to the blockchain network.
 2. The user generates a secret locally, and sends a `btc_getRefundTx` request to the Guardian. The Guardian will verify the request and return a refund transaction with the Guardian signature.
 3. The user verifies the refund transaction and signature.
-4. The user sends a `btc_confirmDeposit` request to the Guardian, which contains the signed funding transaction. The Guardian will verify and store this transaction if valid (the signature from the funding transaction is used to verify the user).
+4. The user sends a `btc_submitDeposit` request to the Guardian, which contains the signed funding transaction. The Guardian will verify and store this transaction if valid (the signature from the funding transaction is used to verify the user).
 5. The Relayer will broadcast the transaction. The user will only be able to use their Instant Wallet once the funding transaction is confirmed. They should not send additional funding requests until this process is completed.
 
 **Funding a wallet with funds**
@@ -59,7 +59,7 @@ Funding an Instant Wallet places a temporary hold on the funds as the Guardian d
 }
 ```
 3. The user generates a secret locally, and sends a `btc_getRefundTx` request to the Guardian. The Guardian checks if the transaction inputs are signed (except the first one) and uses this to verify the request sender. The Guardian will not process send and other funding requests during this time, until this funding request is finalized. The Guardian will return the refund transaction with the Guardian signature. The Guardian will also provide a signature for the initial input, so the user can submit this funding UTXO.
-4. The user provides their signature for the inital input and sends another `btc_confirmDeposit` request to the server, which contains the fully signed funding transaction.
+4. The user provides their signature for the inital input and sends another `btc_submitDeposit` request to the server, which contains the fully signed funding transaction.
 5. The Relayer will broadcast the transaction. The user will only be able to use their Instant Wallet once the funding transaction is confirmed. They should not send additional funding requests until this process is completed.
 
 ### Sending
@@ -126,7 +126,7 @@ Get the wallet details of the given address or public key.
 
 ### `btc_getRefundTx`
 
-Get refund transaction details. This method is used prior to funding. If the wallet provided already has funds, this method will prevent the Guardian from processing other fund or send requests. This method will return an error if the funding UTXO is not confirmed or is in the process of funding or sending.
+Get refund transaction details. This method is used prior to funding. If the wallet provided already has funds, this method will prevent the Guardian from processing other fund or send requests until this is complete. This method will return an error if the funding UTXO is not confirmed or is in the process of funding or sending.
 
 **Request**
 
@@ -144,19 +144,17 @@ Get refund transaction details. This method is used prior to funding. If the wal
 - `guardian_signature` [string]: Guardian signature for the refund transaction.
 - `deposit_guardian_signature` [string](optional): Guardian signature for the new funding transaction, if `deposit_tx` is provided.
 
-### `btc_confirmDeposit`
+### `btc_submitDeposit`
 
 Confirms a funding request once the deposit has reached sufficient confirmation.
+
+Submit funding transaction details. If the provided details are valid, this method will prevent the Guardian from processing other fund or send requests until this is complete. The wallet will be ready-to-use once the funding transaction reaches sufficient confirmations.
 
 **Request**
 
 - `wallet_address` [string] (required): Wallet address to be funded.
 - `secret_hash` [string] (required): Hexadecimal encoding of the secret hash.
 - `raw_funding_tx` [string](required): Raw funding transaction, fully signed by user and Guardian.
-
-**Response**
-
-- `confirmed` [bool]: Whether or not the deposit request has been processed by the Guardian.
 
 ### `btc_send`
 
