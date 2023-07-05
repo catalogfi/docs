@@ -6,12 +6,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Catalog',
-  tagline: 'Catalog unites decentralized protocols whose synergy enables the most lucrative, fastest and protected operations in the DeFi space.',
+  tagline: 'Catalog is the first bridge-less protocol designed to allow Bitcoin, and any other asset, to experience the vast landscape of DeFi, GameFi, and SocialFi.',
   favicon: 'img/favicon.ico',
-  url: 'https://catalog.fi',
-  baseUrl: '/',
+  url: 'https://catalogfi.github.com',
+  baseUrl: '/docs/',
   organizationName: 'catalogfi',
-  projectName: 'catalog-docs',
+  projectName: 'docs',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   i18n: {
@@ -26,7 +26,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/catalogfi/catalog-docs/',
+            'https://github.com/catalogfi/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
