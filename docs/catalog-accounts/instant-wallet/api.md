@@ -40,7 +40,7 @@ Funding an Instant Wallet places a temporary hold on new funding and send reques
 4. The user sends a `btc_submitDeposit` request to the Guardian, which contains the signed funding transaction. The Guardian will verify and store this transaction if valid (the signature from the funding transaction is used to verify the user).
 5. The Relayer will broadcast the transaction. The user will only be able to use their Instant Wallet once the funding transaction is confirmed. They should not send additional funding requests until this process is completed.
 
-**Funding a wallet with funds**
+**Funding a non-empty wallet**
 
 1. The user fetches the current wallet status using the `btc_getWallet` method.
 2. The user constructs a transaction which contains the current funding UTXO as the inital input. The initial output address must be that of the Instant Wallet. The user will need to sign all inputs except the first one.
@@ -59,8 +59,6 @@ Funding an Instant Wallet places a temporary hold on new funding and send reques
 }
 ```
 3. The user generates a secret locally, and sends a `btc_getRefundTx` request to the Guardian. The Guardian checks if the transaction inputs are signed (except the first one) and uses this to verify the request sender. The Guardian will not process send and other funding requests during this time, until this funding request is finalized. The Guardian will return the refund transaction with the Guardian signature. The Guardian will also provide a signature for the initial input, so the user can submit this funding UTXO.
-4. The user provides their signature for the inital input and sends another `btc_submitDeposit` request to the server, which contains the fully signed funding transaction.
-5. The Relayer will broadcast the transaction. The user will only be able to use their Instant Wallet once the funding transaction is confirmed. They should not send additional funding requests until this process is completed.
 
 ### Sending
 
@@ -92,18 +90,46 @@ Creates a new Instant Wallet for Bitcoin. If the wallet already exists, this wil
 - `wallet_address` [string]: The address of the new Instant Wallet.
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format, i.e. the second signer of the 2-of-2 multi-sig.
 
-### `btc_getWallet`
+### `btc_getWalletByAddress`
 
-Get the wallet details of the given address or public key.
+Get the Instant Wallet details with the given address.
 
 **Request**
 
-- `wallet_address` [string] (optional): The wallet address.
-- `public_key` [string] (optional): The wallet public key.
+- `wallet_address` [string] (required): The Instant Wallet address.
 
 **Response**
 
-- `wallet_address` [string]: The address of the Instant Wallet.
+- `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
+- `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
+
+```json
+{
+    ...
+    "funding_utxo": {
+        "tx_hash": "string",
+        "tx_index": "int64",
+        "tx_amount": "int64",
+        "status": "string",
+        "refund_waitblocks": "int64",
+        "refund_secret": "string",
+        "refund_secret_hash": "string",
+        "refund_raw": "string",
+        "refund_guardian_signature": "string"
+    }
+}
+```
+
+### `btc_getWalletByPublicKey`
+
+Get the Instant Wallet details with the given public key.
+
+**Request**
+
+- `public_key` [string] (required): The Instant Wallet public key.
+
+**Response**
+
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
 - `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
 
@@ -179,19 +205,3 @@ Receive a commitment that the user will receive the funds eventually.
 - `wallet_address` [string] (required): Address of the wallet.
 - `tx_hash` [string] (required): Transaction hash for the send transaction.
 - `secret` [string] (required): Secret for the refund script.
-
-**Response**
-
-- `commitment` [string]: TBD
-
-### `btc_getCommitment`
-
-Fetch the commitment for a given send transaction.
-
-**Request**
-
-- `tx_hash` [string] (required): Transaction hash for the send transaction.
-
-**Response**
-
-- `commitment` [string]: TBD
