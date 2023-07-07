@@ -28,7 +28,7 @@ The user sends a `btc_getWallet` request to the Guardian, which returns the wall
 
 :::caution
 
-Funding an Instant Wallet places a temporary hold on the funds as the Guardian does not process transactions while external transactions are being confirmed. To ensure funding requests are only placed by the owner, all transactions must originate from the Master Wallet. Additionally, the refund transaction is the only way to recover funds in the event the Guardian goes offline.
+Funding an Instant Wallet places a temporary hold on new funding and send requests as the Guardian does not process them while external transactions are being confirmed. All Instant Wallet funding transactions must originate from a user's Catalog Account. Additionally, the refund transaction must be kept secure as it is the only way to recover funds in the event the Guardian becomes unresponsive.
 
 :::
 
