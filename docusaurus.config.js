@@ -8,7 +8,7 @@ const config = {
   title: 'Catalog',
   tagline: 'Catalog is the first bridge-less protocol designed to allow Bitcoin, and any other asset, to experience the vast landscape of DeFi, GameFi, and SocialFi.',
   favicon: 'img/favicon.ico',
-  url: 'https://catalogfi.github.com',
+  url: 'https://catalog.fi',
   baseUrl: '/docs/',
   organizationName: 'catalogfi',
   projectName: 'docs',
@@ -27,7 +27,7 @@ const config = {
           routeBasePath: '/', // Serve the docs at the site's root
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/catalogfi/docs/',
+            'https://github.com/catalogfi/docs/blob/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
