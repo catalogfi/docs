@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-An Instant Wallet is a 2-of-2 multi-sig wallet which enables instant transfers and cross-chain swaps, without requiring any form of trust. It does this through the use of the [Guardian](guardian), which allows users to bypass confirmation delays.
+All Catalog Accounts come in-built with an Instant Wallet. An Instant Wallet is a special type of wallet which enables instant transfers and cross-chain swaps, without requiring any form of trust. It does this through a 2-of-2 multi-sig requirement with the [Catalog Guardian](guardian), which allows users to bypass confirmation delays.
 
 ## Funding
 
