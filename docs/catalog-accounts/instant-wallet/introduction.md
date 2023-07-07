@@ -12,7 +12,7 @@ Before a user funds an Instant Wallet, they send a request to the Guardian to si
 
 ## Sending
 
-When a user wishes to send funds to another address, they simply sign the transaction and send it to the Guardian. The Guardian verifies that the transaction is not attempting a double-spend, and promptly provides the second signature. The Guardian provides a new refund transaction to the user, ensuring they still have the freedom to withdraw after their current one has been invalidated. The Guardian gives an instant guarantee to the recipient that they will receive their funds. This mechanism enables Catalog's instant cross-chain swaps.
+When a user wishes to send funds to another address, they simply sign the transaction and send it to the Guardian. The Guardian verifies that the transaction is not attempting a double-spend, and promptly provides the second signature. The Guardian provides a new refund transaction to the user, ensuring they still have the freedom to withdraw after their current one has been invalidated. The Guardian then gives an instant guarantee to the recipient that they will receive their funds. This mechanism enables Catalog's instant cross-chain swaps.
 
 ## Refunding
 
