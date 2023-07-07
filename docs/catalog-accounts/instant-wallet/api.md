@@ -10,7 +10,7 @@ The Guardian API follows the [JSON-RPC 2.0 specification](https://www.jsonrpc.or
 
 ## Authentication
 
-Authentication is required for most API calls to make sure the request sender is actually the owner of the account. The user's Master Wallet is used as the single source of truth to identify the user. All following requests will need to be authorized by the associated private key. During the funding and sending process, the Bitcoin transaction signature is used for authentication instead of requiring a separate signature. In the case of a refund attempt, a secret is used for verification. This is because secret creation is verified by the Master Wallet, and should always be kept private.
+Authentication is required for most API calls to make sure the request sender is actually the owner of the account. The user's Catalog Account is used as the single source of truth to identify the user. All following requests will need to be authorized by the associated private key. During the funding and sending process, the Bitcoin transaction signature is used for authentication instead of requiring a separate signature. In the case of a refund attempt, a secret is used for verification. This is because secret creation is verified by the Catalog Account, and should always be kept private.
 
 ## User Flow
 
