@@ -9,7 +9,7 @@ const config = {
   tagline: 'Catalog is the first bridge-less protocol designed to allow Bitcoin, and any other asset, to experience the vast landscape of DeFi, GameFi, and SocialFi.',
   favicon: 'img/favicon.ico',
   url: 'https://catalogfi.github.com',
-  baseUrl: '/',
+  baseUrl: '/docs/',
   organizationName: 'catalogfi',
   projectName: 'docs',
   onBrokenLinks: 'warn',
