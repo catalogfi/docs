@@ -98,8 +98,8 @@ Get the wallet details of the given address or public key.
 
 **Request**
 
-- `wallet_address` [string](optional): The wallet address.
-- `public_key` [string](optional): The wallet public key.
+- `wallet_address` [string] (optional): The wallet address.
+- `public_key` [string] (optional): The wallet public key.
 
 **Response**
 
@@ -132,17 +132,17 @@ Get refund transaction details. This method is used prior to funding. If the wal
 
 - `wallet_address` [string] (required): Wallet address to be funded.
 - `secret_hash` [string] (required): Hexadecimal encoding of the secret hash.
-- `utxo_hash` [string](required): Hash of the funding UTXO.
-- `utxo_index` [int64](required): Index of the funding UTXO.
-- `utxo_amount` [int64](required): Amount of the funding UTXO.
-- `deposit_tx` [string](optional): The partially signed raw transaction, if the wallet is not empty.
+- `utxo_hash` [string] (required): Hash of the funding UTXO.
+- `utxo_index` [int64] (required): Index of the funding UTXO.
+- `utxo_amount` [int64] (required): Amount of the funding UTXO.
+- `deposit_tx` [string] (optional): The partially signed raw transaction, if the wallet is not empty.
 
 **Response**
 
 - `wait_block` [int64]: Wait block number in the refund script.
 - `raw_tx` [string]: Raw refund transaction in hexadecimal format.
 - `guardian_signature` [string]: Guardian signature for the refund transaction.
-- `deposit_guardian_signature` [string](optional): Guardian signature for the new funding transaction, if `deposit_tx` is provided.
+- `deposit_guardian_signature` [string] (optional): Guardian signature for the new funding transaction, if `deposit_tx` is provided.
 
 ### `btc_submitDeposit`
 
@@ -154,7 +154,7 @@ Submit funding transaction details. If the provided details are valid, this meth
 
 - `wallet_address` [string] (required): Wallet address to be funded.
 - `secret_hash` [string] (required): Hexadecimal encoding of the secret hash.
-- `raw_funding_tx` [string](required): Raw funding transaction, fully signed by user and Guardian.
+- `raw_funding_tx` [string] (required): Raw funding transaction, fully signed by user and Guardian.
 
 ### `btc_send`
 
@@ -162,9 +162,9 @@ Send Bitcoin from an Instant Wallet. The user needs to include the send transact
 
 **Request**
 
-- `wallet_address` [string](required): Address of the wallet.
-- `send_tx` [string](required): Send transaction in raw bytes.
-- `secret_hash` [string](optional): Secret hash for the new refund transaction, if this is a partial send.
+- `wallet_address` [string] (required): Address of the wallet.
+- `send_tx` [string] (required): Send transaction in raw bytes.
+- `secret_hash` [string] (optional): Secret hash for the new refund transaction, if this is a partial send.
 
 **Response**
 
@@ -176,9 +176,9 @@ Receive a commitment that the user will receive the funds eventually.
 
 **Request**
 
-- `wallet_address` [string](required): Address of the wallet.
-- `tx_hash` [string](required): Transaction hash for the send transaction.
-- `secret` [string](required): Secret for the refund script.
+- `wallet_address` [string] (required): Address of the wallet.
+- `tx_hash` [string] (required): Transaction hash for the send transaction.
+- `secret` [string] (required): Secret for the refund script.
 
 **Response**
 
@@ -190,7 +190,7 @@ Fetch the commitment for a given send transaction.
 
 **Request**
 
-- `tx_hash` [string](required): Transaction hash for the send transaction.
+- `tx_hash` [string] (required): Transaction hash for the send transaction.
 
 **Response**
 

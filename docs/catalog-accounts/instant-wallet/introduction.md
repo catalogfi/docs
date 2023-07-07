@@ -6,8 +6,6 @@ sidebar_position: 1
 
 An Instant Wallet is a 2-of-2 multi-sig wallet which enables instant transfers and cross-chain swaps, without requiring any form of trust. It does this through the use of the [Catalog Guardian](guardian), which allows users to bypass confirmation delays. All of the below operations are entirely trustless, and the user maintains full ownership of their funds at each and every step.
 
-![Instant Wallet](img/instant-wallet.jpeg)
-
 ## Funding
 
 Before a user funds an Instant Wallet, they send a request to the Guardian to sign a refund transaction in the event the Guardian stops signing transactions or goes offline. This transaction can be signed by the user at any point to withdraw their funds. Once the user has received this transaction, they can safely fund their Instant Wallet knowing they will have full control of their assets through the entire process.
