@@ -101,7 +101,7 @@ Get the Instant Wallet details with the given address.
 **Response**
 
 - `wallet_address` [string] (required): The Instant Wallet address.
-- `state` [int] (required): Current state of the instant wallet (ready/funding/redeeming...)
+- `status` [int] (required): Current status of the instant wallet (ready/funding/redeeming...)
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
 - `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
 
@@ -132,7 +132,7 @@ Get the Instant Wallet details with the given public key.
 **Response**
 
 - `wallet_address` [string] (required): The Instant Wallet address.
-- `state` [int] (required): Current state of the instant wallet (ready/funding/redeeming...)
+- `status` [int] (required): Current status of the instant wallet (ready/funding/redeeming...)
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
 - `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
 
