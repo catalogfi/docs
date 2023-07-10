@@ -18,7 +18,7 @@ Let's step through an example user flow to outline common API interactions.
 
 ### Creation
 
-The user sends a `btc_newWallet` request to the Guardian, which returns the Instant Wallet address alongside the Guardian public key (i.e. the second signer of the 2-of-2 multisig). The user will then be able to deposit funds to the returning address to start using their Instant Wallet.
+The user sends a `btc_createWallet` request to the Guardian, which returns the Instant Wallet address alongside the Guardian public key (i.e. the second signer of the 2-of-2 multisig). The user will then be able to deposit funds to the returning address to start using their Instant Wallet.
 
 ### Querying
     
@@ -77,7 +77,7 @@ Funding an Instant Wallet places a temporary hold on new funding and send reques
 
 ## Methods
 
-### `btc_newWallet`
+### `btc_createWallet`
 
 Creates a new Instant Wallet for Bitcoin. If the wallet already exists, this will not recreate the wallet or create a new one.
 
@@ -100,6 +100,8 @@ Get the Instant Wallet details with the given address.
 
 **Response**
 
+- `wallet_address` [string] (required): The Instant Wallet address.
+- `state` [int] (required): Current state of the instant wallet (ready/funding/redeeming...)
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
 - `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
 
@@ -110,8 +112,7 @@ Get the Instant Wallet details with the given address.
         "tx_hash": "string",
         "tx_index": "int64",
         "tx_amount": "int64",
-        "status": "string",
-        "refund_waitblocks": "int64",
+        "refund_wait_block": "int64",
         "refund_secret": "string",
         "refund_secret_hash": "string",
         "refund_raw": "string",
@@ -130,6 +131,8 @@ Get the Instant Wallet details with the given public key.
 
 **Response**
 
+- `wallet_address` [string] (required): The Instant Wallet address.
+- `state` [int] (required): Current state of the instant wallet (ready/funding/redeeming...)
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
 - `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
 
@@ -140,8 +143,7 @@ Get the Instant Wallet details with the given public key.
         "tx_hash": "string",
         "tx_index": "int64",
         "tx_amount": "int64",
-        "status": "string",
-        "refund_waitblocks": "int64",
+        "refund_wait_block": "int64",
         "refund_secret": "string",
         "refund_secret_hash": "string",
         "refund_raw": "string",
@@ -167,7 +169,7 @@ Get refund transaction details. This method is used prior to funding. If the wal
 
 - `wait_block` [int64]: Wait block number in the refund script.
 - `raw_tx` [string]: Raw refund transaction in hexadecimal format.
-- `guardian_signature` [string]: Guardian signature for the refund transaction.
+- `refund_guardian_signature` [string]: Guardian signature for the refund transaction.
 - `deposit_guardian_signature` [string] (optional): Guardian signature for the new funding transaction, if `deposit_tx` is provided.
 
 ### `btc_submitDeposit`
@@ -180,7 +182,7 @@ Submit funding transaction details. If the provided details are valid, this meth
 
 - `wallet_address` [string] (required): Wallet address to be funded.
 - `secret_hash` [string] (required): Hexadecimal encoding of the secret hash.
-- `raw_funding_tx` [string] (required): Raw funding transaction, fully signed by user and Guardian.
+- `raw_deposit_tx` [string] (required): Raw deposit transaction, fully signed by user and Guardian.
 
 ### `btc_send`
 
