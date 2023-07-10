@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# Introduction
+# HTLCs
 
 Catalog Swaps use hashed timelock contracts (HTLCs) for execution, which function as a two-way virtual safe.
 
