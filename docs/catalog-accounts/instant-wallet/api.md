@@ -18,7 +18,7 @@ Let's step through an example user flow to outline common API interactions.
 
 ### Creation
 
-The user sends a `btc_newWallet` request to the Guardian, which returns the Instant Wallet address alongside the Guardian public key (i.e. the second signer of the 2-of-2 multisig). The user will then be able to deposit funds to the returning address to start using their Instant Wallet.
+The user sends a `btc_createWallet` request to the Guardian, which returns the Instant Account address alongside the Guardian public key (i.e. the second signer of the 2-of-2 multisig). The user will then be able to deposit funds to the returning address to start using their Instant Account.
 
 ### Querying
     
@@ -28,7 +28,7 @@ The user sends a `btc_getWallet` request to the Guardian, which returns the wall
 
 :::caution
 
-Funding an Instant Wallet places a temporary hold on new funding and send requests as the Guardian does not process them while external transactions are being confirmed. All Instant Wallet funding transactions must originate from a user's Catalog Account. Additionally, the refund transaction must be kept secure as it is the only way to recover funds in the event the Guardian becomes unresponsive.
+Funding an Instant Account places a temporary hold on new funding and send requests as the Guardian does not process them while external transactions are being confirmed. All Instant Account funding transactions must originate from a user's Catalog Account. Additionally, the refund transaction must be kept secure as it is the only way to recover funds in the event the Guardian becomes unresponsive.
 
 :::
 
@@ -38,12 +38,12 @@ Funding an Instant Wallet places a temporary hold on new funding and send reques
 2. The user generates a secret locally, and sends a `btc_getRefundTx` request to the Guardian. The Guardian will verify the request and return a refund transaction with the Guardian signature.
 3. The user verifies the refund transaction and signature.
 4. The user sends a `btc_submitDeposit` request to the Guardian, which contains the signed funding transaction. The Guardian will verify and store this transaction if valid (the signature from the funding transaction is used to verify the user).
-5. The Relayer will broadcast the transaction. The user will only be able to use their Instant Wallet once the funding transaction is confirmed. They should not send additional funding requests until this process is completed.
+5. The Relayer will broadcast the transaction. The user will only be able to use their Instant Account once the funding transaction is confirmed. They should not send additional funding requests until this process is completed.
 
 **Funding a non-empty wallet**
 
 1. The user fetches the current wallet status using the `btc_getWallet` method.
-2. The user constructs a transaction which contains the current funding UTXO as the inital input. The initial output address must be that of the Instant Wallet. The user will need to sign all inputs except the first one.
+2. The user constructs a transaction which contains the current funding UTXO as the inital input. The initial output address must be that of the Instant Account. The user will need to sign all inputs except the first one.
 ```json
 {
     "input": {
@@ -65,12 +65,12 @@ Funding an Instant Wallet places a temporary hold on new funding and send reques
 **Send all funds in a single request**
 
 1. The user constructs the send transaction, which has the funding UTXO as the only input. Any recipient address(es) can be specified, as the Guardian only verifies the input.
-2. The user signs the send transaction and submits a `btc_send` request to Guardian. The Guardian will use the transaction signature to authenticate the request sender. The Guardian will not process other Instant Wallet transactions during this time. It will then sign the input, and send the signed transaction to Relayer to broadcast to the network. The Guardian will also return the signature to allow the user to submit the send transaction themselves. If the server fails to provide this signature, the user can use the refund transaction to get their funds back.
+2. The user signs the send transaction and submits a `btc_send` request to Guardian. The Guardian will use the transaction signature to authenticate the request sender. The Guardian will not process other Instant Account transactions during this time. It will then sign the input, and send the signed transaction to Relayer to broadcast to the network. The Guardian will also return the signature to allow the user to submit the send transaction themselves. If the server fails to provide this signature, the user can use the refund transaction to get their funds back.
 3. In order to get the Guardian commitment, the user sends a `btc_commit` request and provides the secret generated during the funding process. This secret is used to verify the user's identity.
 
 **Send a portion of the funds**
 
-1. The user constructs the send transaction, which has the funding UTXO as the only input. This will include a change transaction back to the Instant Wallet address.
+1. The user constructs the send transaction, which has the funding UTXO as the only input. This will include a change transaction back to the Instant Account address.
 2. The user sends a `btc_getRefundTx` request to get a new refund transaction and signature. This allows the user to move the funds to the refund address as soon as the send transaction is successful.
 3. The user sends a `btc_send` request to submit the send transaction. This transaction is signed by the user, allowing the Guardian to verify the sender.
 4. In order to get the Guardian commitment, the user sends a `btc_commit` request and provides the secret generated during the original funding process. This secret is used to verify the user's identity.
@@ -79,7 +79,7 @@ Funding an Instant Wallet places a temporary hold on new funding and send reques
 
 ### `btc_newWallet`
 
-Creates a new Instant Wallet for Bitcoin. If the wallet already exists, this will not recreate the wallet or create a new one.
+Creates a new Instant Account for Bitcoin. If the wallet already exists, this will not recreate the wallet or create a new one.
 
 **Request**
 
@@ -87,19 +87,21 @@ Creates a new Instant Wallet for Bitcoin. If the wallet already exists, this wil
 
 **Response**
 
-- `wallet_address` [string]: The address of the new Instant Wallet.
+- `wallet_address` [string]: The address of the new Instant Account.
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format, i.e. the second signer of the 2-of-2 multi-sig.
 
 ### `btc_getWalletByAddress`
 
-Get the Instant Wallet details with the given address.
+Get the Instant Account details with the given address.
 
 **Request**
 
-- `wallet_address` [string] (required): The Instant Wallet address.
+- `wallet_address` [string] (required): The Instant Account address.
 
 **Response**
 
+- `wallet_address` [string]: The Instant Account address.
+- `status` [string]: Current status of the Instant Account.
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
 - `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
 
@@ -122,14 +124,16 @@ Get the Instant Wallet details with the given address.
 
 ### `btc_getWalletByPublicKey`
 
-Get the Instant Wallet details with the given public key.
+Get the Instant Account details with the given public key.
 
 **Request**
 
-- `public_key` [string] (required): The Instant Wallet public key.
+- `public_key` [string] (required): The Instant Account public key.
 
 **Response**
 
+- `wallet_address` [string]: The Instant Account address.
+- `status` [string]: Current status of the Instant Account.
 - `guardian_public_key` [string]: The Guardian public key in hexadecimal format.
 - `funding_utxo` [struct] (optional): The current funding UTXO details, if it exists.
 
@@ -184,7 +188,7 @@ Submit funding transaction details. If the provided details are valid, this meth
 
 ### `btc_send`
 
-Send Bitcoin from an Instant Wallet. The user needs to include the send transaction hash in order to get a new refund transaction in return.
+Send Bitcoin from an Instant Account. The user needs to include the send transaction hash in order to get a new refund transaction in return.
 
 **Request**
 
