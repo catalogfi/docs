@@ -77,7 +77,7 @@ Funding an Instant Account places a temporary hold on new funding and send reque
 
 ## Methods
 
-### `btc_newWallet`
+### `btc_createWallet`
 
 Creates a new Instant Account for Bitcoin. If the wallet already exists, this will not recreate the wallet or create a new one.
 
@@ -112,8 +112,7 @@ Get the Instant Account details with the given address.
         "tx_hash": "string",
         "tx_index": "int64",
         "tx_amount": "int64",
-        "status": "string",
-        "refund_waitblocks": "int64",
+        "refund_wait_block": "int64",
         "refund_secret": "string",
         "refund_secret_hash": "string",
         "refund_raw": "string",
@@ -144,8 +143,7 @@ Get the Instant Account details with the given public key.
         "tx_hash": "string",
         "tx_index": "int64",
         "tx_amount": "int64",
-        "status": "string",
-        "refund_waitblocks": "int64",
+        "refund_wait_block": "int64",
         "refund_secret": "string",
         "refund_secret_hash": "string",
         "refund_raw": "string",
@@ -171,7 +169,7 @@ Get refund transaction details. This method is used prior to funding. If the wal
 
 - `wait_block` [int64]: Wait block number in the refund script.
 - `raw_tx` [string]: Raw refund transaction in hexadecimal format.
-- `guardian_signature` [string]: Guardian signature for the refund transaction.
+- `refund_guardian_signature` [string]: Guardian signature for the refund transaction.
 - `deposit_guardian_signature` [string] (optional): Guardian signature for the new funding transaction, if `deposit_tx` is provided.
 
 ### `btc_submitDeposit`
@@ -184,7 +182,7 @@ Submit funding transaction details. If the provided details are valid, this meth
 
 - `wallet_address` [string] (required): Wallet address to be funded.
 - `secret_hash` [string] (required): Hexadecimal encoding of the secret hash.
-- `raw_funding_tx` [string] (required): Raw funding transaction, fully signed by user and Guardian.
+- `raw_deposit_tx` [string] (required): Raw deposit transaction, fully signed by user and Guardian.
 
 ### `btc_send`
 
