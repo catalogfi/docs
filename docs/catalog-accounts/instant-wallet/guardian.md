@@ -4,5 +4,4 @@ sidebar_position: 2
 
 # Guardian
 
-The Guardian is a co-signing service for the Instant Wallet. The Guardian ensures secure transactions by eliminating the possibility of double spending without the need for confirmation delays. It achieves this by providing a second signature for all account operations, meaning it can guarantee no transaction will be able to override existing ones.
-> comment : Technically the tx can still be overridden by the refund tx, but we can recover that if this actually happens, don't know if we want to mention this or change the wording)
+The Guardian is a co-signing service for the Instant Wallet. The Guardian ensures secure transactions by eliminating the possibility of double spending without the need for confirmation delays. It achieves this by providing a second signature for all account operations, meaning it can guarantee no operation will be able to override existing ones. The Guardian does not require any trust from the user as it signs a refund transaction prior to any funding request, meaning the user can withdraw at any point in the event the Guardian becomes unresponsive.
