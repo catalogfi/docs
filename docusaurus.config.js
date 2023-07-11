@@ -8,8 +8,8 @@ const config = {
   title: 'Catalog',
   tagline: 'Catalog is the first bridge-less protocol designed to allow Bitcoin, and any other asset, to experience the vast landscape of DeFi, GameFi, and SocialFi.',
   favicon: 'img/favicon.ico',
-  url: 'https://catalog.fi',
-  baseUrl: '/docs/',
+  url: 'https://docs.catalog.fi',
+  baseUrl: '/',
   organizationName: 'catalogfi',
   projectName: 'docs',
   onBrokenLinks: 'warn',
@@ -41,7 +41,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/social-card.png',
       navbar: {
         title: 'Catalog Docs',
         logo: {
