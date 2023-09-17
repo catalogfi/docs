@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 5
 ---
 
-# Order Book
+# Batch Auctions
 
 :::info
 

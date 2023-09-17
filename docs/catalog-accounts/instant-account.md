@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# Introduction
+# Instant Account
 
 All Catalog Accounts come with the ability to open an Instant Account. An Instant Account is a special type of wallet which enables instant transfers and cross-chain swaps, without requiring any form of trust. It does this through a 2-of-2 multi-sig requirement with the [Guardian](guardian) component, which allows users to bypass confirmation delays.
 
