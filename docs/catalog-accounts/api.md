@@ -6,7 +6,7 @@ sidebar_position: 4
 
 ## Description
 
-The Guardian API follows the [JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification).
+The Instant Account API follows the [JSON-RPC 2.0 specification](https://www.jsonrpc.org/specification).
 
 ## Authentication
 
