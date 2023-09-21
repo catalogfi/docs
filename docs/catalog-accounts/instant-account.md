@@ -8,7 +8,7 @@ All Catalog Accounts come with the ability to open an Instant Account. An Instan
 
 ## Funding
 
-Before a user funds an Instant Account, they send a request to the Guardian to sign a refund transaction in the event the Guardian stops signing transactions or goes offline. This transaction can be signed by the user at any point to withdraw their funds. Once the user has received this transaction, they can safely fund their Instant Account knowing they will have full control of their assets through the entire process.
+Before a user funds an Instant Account, they send a request to the Guardian to sign a refund transaction in the event the Guardian stops signing transactions or goes offline. This transaction can be signed by the user at any point to withdraw their funds. Once the user has received this transaction, they can safely fund their Instant Account knowing they will have full control of their assets throughout the entire process.
 
 ## Sending
 
