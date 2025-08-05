@@ -1,0 +1,285 @@
+---
+title: "Overview"
+description: "Manage security policies and rules for controlling wallet operations and access control through our comprehensive Policies API"
+---
+
+# Policies & Rules Management
+
+Catalog API provides comprehensive endpoints for managing security policies and rules that control wallet operations, access control, and transaction permissions across your applications.
+
+## Quick Start - Policies Management
+
+<Steps>
+  <Step title="Create Policy">Create a new security policy with rules</Step>
+  <Step title="Configure Rules">
+    Set up specific rules for wallet operations
+  </Step>
+  <Step title="Apply to Wallets">
+    Assign policies to wallets for enforcement
+  </Step>
+  <Step title="Monitor Compliance">Track policy compliance and violations</Step>
+</Steps>
+
+## Policies & Rules Endpoints Overview
+
+### Core Policy Management
+
+- **Create Policy** - Create a new policy with rules for controlling wallet operations
+- **Get Policy** - Retrieve detailed information about a specific policy
+- **Update Policy** - Update policy configuration and settings
+- **Delete Policy** - Remove a policy and its associated rules
+
+### Policy Rules Management
+
+- **Create Policy Rule** - Add new rules to an existing policy
+- **Get Policy Rule** - Retrieve specific rule details within a policy
+- **Update Policy Rule** - Modify existing policy rules
+- **Delete Policy Rule** - Remove specific rules from a policy
+
+### Policy Features
+
+- **Multi-Chain Support** - Policies work across Ethereum, Solana, and other blockchains
+- **Granular Control** - Fine-grained control over wallet operations
+- **Rule Types** - Various rule types for different security requirements
+- **Compliance Monitoring** - Track policy compliance and violations
+
+## Policy Types
+
+### Transaction Policies
+
+- **Spending Limits** - Set maximum transaction amounts
+- **Destination Restrictions** - Control where funds can be sent
+- **Gas Limits** - Restrict gas usage for transactions
+- **Frequency Limits** - Control how often transactions can be made
+
+### Access Control Policies
+
+- **User Permissions** - Control who can access wallets
+- **Time-based Access** - Restrict access to specific time periods
+- **Geographic Restrictions** - Limit access based on location
+- **Device Restrictions** - Control access from specific devices
+
+### Security Policies
+
+- **Multi-Signature Requirements** - Require multiple signatures for transactions
+- **Approval Workflows** - Implement approval processes for transactions
+- **Audit Logging** - Track all policy-related activities
+- **Compliance Rules** - Ensure regulatory compliance
+
+## Authentication
+
+Policies endpoints require authentication using:
+
+- **Bearer Token** - For most policy management operations
+- **App-Level Auth** - For app-specific policy operations
+
+## Common Headers
+
+| Header           | Type   | Required | Description         |
+| ---------------- | ------ | -------- | ------------------- |
+| `Authorization`  | string | Yes      | Bearer token        |
+| `catalog-app-id` | string | Yes      | Your Catalog app ID |
+| `Content-Type`   | string | Yes      | application/json    |
+
+## Response Format
+
+Policies endpoints return JSON responses with consistent structure:
+
+```json
+{
+  "id": "policy_123",
+  "name": "High Security Policy",
+  "version": "1.0",
+  "chain_type": "ethereum",
+  "rules": [
+    {
+      "id": "rule_456",
+      "type": "spending_limit",
+      "parameters": {
+        "max_amount": "1.0",
+        "currency": "ETH"
+      }
+    }
+  ],
+  "created_at": 1752036285,
+  "updated_at": 1752036285
+}
+```
+
+## Error Handling
+
+Policies endpoints use standard HTTP status codes:
+
+- **200** - Success
+- **400** - Bad Request (invalid parameters)
+- **401** - Unauthorized (invalid credentials)
+- **403** - Forbidden (insufficient permissions)
+- **404** - Policy or rule not found
+- **429** - Rate limit exceeded
+
+## Best Practices
+
+### Policy Design
+
+- **Principle of Least Privilege** - Grant only necessary permissions
+- **Clear Naming** - Use descriptive names for policies and rules
+- **Version Control** - Maintain policy versions for audit trails
+- **Testing** - Test policies in development before production
+
+### Security Considerations
+
+- **Regular Review** - Periodically review and update policies
+- **Access Monitoring** - Monitor policy access and changes
+- **Backup Policies** - Keep backups of critical policies
+- **Documentation** - Document policy purposes and requirements
+
+### Performance
+
+- **Efficient Rules** - Design rules for optimal performance
+- **Caching** - Cache frequently accessed policy data
+- **Batch Operations** - Use batch operations when possible
+- **Monitoring** - Monitor policy evaluation performance
+
+## Complete Example
+
+Here's a complete example of policy management:
+
+```javascript
+// Create a new policy
+const createPolicy = async (policyData, accessToken) => {
+  const response = await fetch("https://api.catalog.fi/v1/policies", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "catalog-app-id": "your-catalog-app-id",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      version: "1.0",
+      name: "High Security Policy",
+      chain_type: "ethereum",
+      rules: [
+        {
+          type: "spending_limit",
+          parameters: {
+            max_amount: "1.0",
+            currency: "ETH",
+          },
+        },
+        {
+          type: "destination_restriction",
+          parameters: {
+            allowed_addresses: ["0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6"],
+          },
+        },
+      ],
+    }),
+  });
+  return response.json();
+};
+
+// Get policy details
+const getPolicy = async (policyId, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/policies/${policyId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "catalog-app-id": "your-catalog-app-id",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.json();
+};
+
+// Add a rule to a policy
+const createPolicyRule = async (policyId, ruleData, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/policies/${policyId}/rules`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "catalog-app-id": "your-catalog-app-id",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        type: "frequency_limit",
+        parameters: {
+          max_transactions_per_day: 10,
+        },
+      }),
+    }
+  );
+  return response.json();
+};
+
+// Update a policy
+const updatePolicy = async (policyId, updates, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/policies/${policyId}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "catalog-app-id": "your-catalog-app-id",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updates),
+    }
+  );
+  return response.json();
+};
+
+// Usage example
+const managePolicies = async (accessToken) => {
+  // Create a new policy
+  const newPolicy = await createPolicy(
+    {
+      version: "1.0",
+      name: "Corporate Wallet Policy",
+      chain_type: "ethereum",
+      rules: [
+        {
+          type: "spending_limit",
+          parameters: {
+            max_amount: "10.0",
+            currency: "ETH",
+          },
+        },
+      ],
+    },
+    accessToken
+  );
+
+  // Get policy details
+  const policyDetails = await getPolicy(newPolicy.id, accessToken);
+
+  // Add a new rule
+  const newRule = await createPolicyRule(
+    newPolicy.id,
+    {
+      type: "approval_workflow",
+      parameters: {
+        required_approvers: 2,
+      },
+    },
+    accessToken
+  );
+
+  // Update policy
+  const updatedPolicy = await updatePolicy(
+    newPolicy.id,
+    {
+      name: "Updated Corporate Wallet Policy",
+    },
+    accessToken
+  );
+
+  return { newPolicy, policyDetails, newRule, updatedPolicy };
+};
+```
+
+This comprehensive policies and rules management system allows you to implement sophisticated security controls and access management for your blockchain wallets and applications.

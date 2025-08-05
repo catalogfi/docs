@@ -34,116 +34,89 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "Overview",
-            "pages": ["api-reference/introduction"]
-          }
-        ]
-      },
-      {
-        "tab": "Authentication",
-        "groups": [
-          {
             "group": "Authentication",
             "pages": [
-              "api-reference/endpoint/auth/auth",
               "api-reference/endpoint/auth/send-otp",
               "api-reference/endpoint/auth/verify-otp",
               "api-reference/endpoint/auth/refresh-session"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Users",
-        "groups": [
+          },
           {
-            "group": "User Management",
+            "group": "Wallets",
             "pages": [
-              "api-reference/endpoint/user/users-overview",
+              "api-reference/endpoint/wallets/overview",
+              "api-reference/endpoint/wallets/create",
+              "api-reference/endpoint/wallets/get",
+              "api-reference/endpoint/wallets/get-wallets",
+              "api-reference/endpoint/wallets/update",
+              "api-reference/endpoint/wallets/get-balance",
+              "api-reference/endpoint/wallets/get-transactions",
+              "api-reference/endpoint/wallets/operations",
+              "api-reference/endpoint/wallets/export"
+            ]
+          },
+          {
+            "group": "Users",
+            "pages": [
               "api-reference/endpoint/user/create-user",
               "api-reference/endpoint/user/get-all-users",
               "api-reference/endpoint/user/get-user-by-id",
-              "api-reference/endpoint/user/get-user-by-email",
-              "api-reference/endpoint/user/get-user-by-wallet",
-              "api-reference/endpoint/user/get-user-by-custom-auth",
               "api-reference/endpoint/user/delete-user",
-              "api-reference/endpoint/user/update-user-custom-metadata",
+              "api-reference/endpoint/user/update-metadata",
               "api-reference/endpoint/user/pregenerate-user-wallets"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Applications",
-        "groups": [
+          },
           {
-            "group": "App Management",
+            "group": "Quorums",
             "pages": [
-              "api-reference/endpoint/apps-overview",
-              "api-reference/endpoint/get-app",
-              "api-reference/endpoint/create-app",
-              "api-reference/endpoint/update-app",
-              "api-reference/endpoint/delete-app",
-              "api-reference/endpoint/list-apps"
+              "api-reference/endpoint/quorums/get-multi",
+              "api-reference/endpoint/quorums/get",
+              "api-reference/endpoint/quorums/create",
+              "api-reference/endpoint/quorums/update",
+              "api-reference/endpoint/quorums/delete"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Wallets",
-        "groups": [
-          {
-            "group": "Wallet Management",
-            "pages": ["api-reference/endpoint/wallets"]
-          }
-        ]
-      },
-      {
-        "tab": "Policies & Rules",
-        "groups": [
+          },
           {
             "group": "Policies",
-            "pages": ["api-reference/endpoint/policies"]
-          },
-          {
-            "group": "Policy Rules",
-            "pages": ["api-reference/endpoint/policy-rules"]
-          }
-        ]
-      },
-      {
-        "tab": "Security",
-        "groups": [
-          {
-            "group": "Key Quorums",
-            "pages": ["api-reference/endpoint/key-quorums"]
-          },
-          {
-            "group": "Dashboard",
-            "pages": ["api-reference/endpoint/dashboard"]
+            "pages": [
+              "api-reference/endpoint/policies/overview",
+              "api-reference/endpoint/policies/create",
+              "api-reference/endpoint/policies/get",
+              "api-reference/endpoint/policies/update",
+              "api-reference/endpoint/policies/delete",
+              {
+                "group": "Rules",
+                "pages": [
+                  "api-reference/endpoint/policies/rules/create",
+                  "api-reference/endpoint/policies/rules/get",
+                  "api-reference/endpoint/policies/rules/update",
+                  "api-reference/endpoint/policies/rules/delete"
+                ]
+              }
+            ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
+  },
+  "global": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "href": "https://mintlify.com/docs",
+        "icon": "book-open-cover"
+      },
+      {
+        "anchor": "Community",
+        "href": "https://mintlify.com/community",
+        "icon": "slack"
+      },
+      {
+        "anchor": "Blog",
+        "href": "https://mintlify.com/blog",
+        "icon": "newspaper"
+      }
+    ]
   },
   "logo": {
     "light": "/logo/light-logo.svg",
