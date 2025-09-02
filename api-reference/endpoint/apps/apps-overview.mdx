@@ -1,0 +1,190 @@
+---
+title: "Overview"
+description: "Manage your Catalog applications, configuration, and settings through our comprehensive Apps API"
+---
+
+# Apps Management
+
+Catalog API provides comprehensive endpoints for managing your applications, including configuration, settings, clients, and various app-specific features.
+
+## Quick Start - Apps Management
+
+<Steps>
+  <Step title="Get App Details">Retrieve comprehensive app information</Step>
+  <Step title="Configure Settings">Update app configuration and settings</Step>
+  <Step title="Manage Clients">Create and manage app clients</Step>
+  <Step title="Set Up Features">
+    Configure domains, OAuth, and other features
+  </Step>
+</Steps>
+
+## Apps Endpoints Overview
+
+### Core App Management
+
+- **Get App Details** - Retrieve comprehensive information about a specific app
+- **Update App Configuration** - Update app settings, branding, authentication methods, and more
+- **Get App User Count** - Retrieve current user count and limits for an app
+- **Get App Secrets** - Retrieve app secrets and client information
+
+### App Configuration
+
+- **Domain Configuration** - Manage allowed domains and cookie settings
+- **Client Management** - Create and manage app clients
+- **URL Restrictions** - Configure OAuth redirect URLs and restrictions
+- **MFA Configuration** - Set up multi-factor authentication settings
+- **Session Configuration** - Configure session management settings
+
+### App Features
+
+- **OAuth Configuration** - Set up custom OAuth providers
+- **Smart Wallets** - Configure smart wallet settings
+- **Funding Configuration** - Manage app funding settings
+- **Cross-App Providers** - Enable or disable cross-app integrations
+
+### Security & Access Control
+
+- **Allowlist Management** - Manage user allowlists
+- **Denylist Management** - Manage user denylists
+- **Key Quorums** - Configure key quorum settings
+- **Test Credentials** - Create and manage test credentials
+
+## Authentication
+
+All apps endpoints require authentication using either:
+
+- **Bearer Token** - For most app management operations
+- **Basic Auth** - For certain administrative operations
+
+## Common Headers
+
+| Header          | Type   | Required | Description                |
+| --------------- | ------ | -------- | -------------------------- |
+| `Authorization` | string | Yes      | Bearer token or Basic auth |
+| `privy-app-id`  | string | Yes      | Your Privy app ID          |
+| `Content-Type`  | string | Yes      | application/json           |
+
+## Response Format
+
+All apps endpoints return JSON responses with consistent error handling:
+
+```json
+{
+  "app": {
+    "id": "cmcx1p0y50315i80ldhmlcnmm",
+    "name": "My App",
+    "created_at": 1752036285,
+    "configuration": {
+      // App configuration details
+    }
+  }
+}
+```
+
+## Error Handling
+
+Apps endpoints use standard HTTP status codes:
+
+- **200** - Success
+- **400** - Bad Request (invalid parameters)
+- **401** - Unauthorized (invalid credentials)
+- **403** - Forbidden (insufficient permissions)
+- **404** - App not found
+- **429** - Rate limit exceeded
+
+## Best Practices
+
+### App Configuration
+
+- **Test in Development** - Always test configuration changes in a development environment first
+- **Backup Settings** - Keep backups of your app configuration
+- **Monitor Changes** - Track configuration changes for audit purposes
+- **Use Environment Variables** - Store sensitive configuration in environment variables
+
+### Security
+
+- **Regular Rotation** - Regularly rotate app secrets and credentials
+- **Principle of Least Privilege** - Grant only necessary permissions
+- **Monitor Access** - Monitor app access and usage patterns
+- **Secure Headers** - Always use HTTPS and secure headers
+
+### Performance
+
+- **Caching** - Cache app configuration where appropriate
+- **Rate Limiting** - Respect API rate limits
+- **Batch Operations** - Use batch operations when possible
+- **Efficient Queries** - Use specific endpoints rather than retrieving all data
+
+## Complete Example
+
+Here's a complete example of managing an app:
+
+```javascript
+// Get app details
+const getAppDetails = async (appId, accessToken) => {
+  const response = await fetch(`https://api.catalog.fi/v1/apps/${appId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "privy-app-id": "your-privy-app-id",
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};
+
+// Update app configuration
+const updateAppConfig = async (appId, config, accessToken) => {
+  const response = await fetch(`https://api.catalog.fi/v1/apps/${appId}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "privy-app-id": "your-privy-app-id",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(config),
+  });
+  return response.json();
+};
+
+// Get app clients
+const getAppClients = async (appId, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/apps/${appId}/clients`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "privy-app-id": "your-privy-app-id",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.json();
+};
+
+// Usage example
+const manageApp = async (appId, accessToken) => {
+  // Get current app details
+  const appDetails = await getAppDetails(appId, accessToken);
+
+  // Update app configuration
+  const updatedConfig = await updateAppConfig(
+    appId,
+    {
+      name: "Updated App Name",
+      allowed_domains: ["https://myapp.com"],
+      wallet_auth: true,
+      email_auth: true,
+    },
+    accessToken
+  );
+
+  // Get app clients
+  const clients = await getAppClients(appId, accessToken);
+
+  return { appDetails, updatedConfig, clients };
+};
+```
+
+This comprehensive apps management system allows you to fully control and configure your Catalog applications programmatically.

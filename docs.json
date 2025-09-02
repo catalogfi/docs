@@ -3,29 +3,33 @@
   "theme": "mint",
   "name": "Catalog",
   "colors": {
-    "primary": "#054C3A",
+    "primary": "#07C983",
     "light": "#5CFFD5",
-    "dark": "#054C3A"
+    "dark": "#07C983"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Getting started",
         "groups": [
           {
-            "group": "Get Started",
-            "pages": ["index", "quickstart", "development"]
+            "group": "Introduction",
+            "pages": ["api-reference/introduction"]
           },
           {
-            "group": "Essentials",
+            "group": "Get started",
+            "pages": ["getting-started/create-account"]
+          },
+          {
+            "group": "Configuring Catalog Dashboard",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "getting-started/configuring-catalog-dashboard/overview",
+              "getting-started/configuring-catalog-dashboard/create-new-app",
+              "getting-started/configuring-catalog-dashboard/configure-login-methods",
+              "getting-started/configuring-catalog-dashboard/app-clients",
+              "getting-started/configuring-catalog-dashboard/teammate-roles",
+              "getting-started/configuring-catalog-dashboard/dashboard-mfa"
             ]
           }
         ]
@@ -34,8 +38,64 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "Overview",
-            "pages": ["api-reference/introduction"]
+            "group": "Authentication",
+            "pages": [
+              "api-reference/endpoint/auth/send-otp",
+              "api-reference/endpoint/auth/verify-otp",
+              "api-reference/endpoint/auth/refresh-session"
+            ]
+          },
+          {
+            "group": "Wallets",
+            "pages": [
+              "api-reference/endpoint/wallets/create",
+              "api-reference/endpoint/wallets/get",
+              "api-reference/endpoint/wallets/get-wallets",
+              "api-reference/endpoint/wallets/update",
+              "api-reference/endpoint/wallets/get-balance",
+              "api-reference/endpoint/wallets/get-transactions",
+              "api-reference/endpoint/wallets/operations",
+              "api-reference/endpoint/wallets/export"
+            ]
+          },
+          {
+            "group": "Users",
+            "pages": [
+              "api-reference/endpoint/user/create-user",
+              "api-reference/endpoint/user/get-all-users",
+              "api-reference/endpoint/user/get-user-by-id",
+              "api-reference/endpoint/user/delete-user",
+              "api-reference/endpoint/user/update-metadata",
+              "api-reference/endpoint/user/pregenerate-user-wallets"
+            ]
+          },
+          {
+            "group": "Quorums",
+            "pages": [
+              "api-reference/endpoint/quorums/get-multi",
+              "api-reference/endpoint/quorums/get",
+              "api-reference/endpoint/quorums/create",
+              "api-reference/endpoint/quorums/update",
+              "api-reference/endpoint/quorums/delete"
+            ]
+          },
+          {
+            "group": "Policies",
+            "pages": [
+              "api-reference/endpoint/policies/create",
+              "api-reference/endpoint/policies/get",
+              "api-reference/endpoint/policies/update",
+              "api-reference/endpoint/policies/delete",
+              {
+                "group": "Rules",
+                "pages": [
+                  "api-reference/endpoint/policies/rules/create",
+                  "api-reference/endpoint/policies/rules/get",
+                  "api-reference/endpoint/policies/rules/update",
+                  "api-reference/endpoint/policies/rules/delete"
+                ]
+              }
+            ]
           }
         ]
       },
@@ -44,12 +104,7 @@
         "groups": [
           {
             "group": "Authentication",
-            "pages": [
-              "api-reference/endpoint/auth/auth",
-              "api-reference/endpoint/auth/send-otp",
-              "api-reference/endpoint/auth/verify-otp",
-              "api-reference/endpoint/auth/refresh-session"
-            ]
+            "pages": ["api-reference/endpoint/auth/auth-overview"]
           }
         ]
       },
@@ -58,34 +113,7 @@
         "groups": [
           {
             "group": "User Management",
-            "pages": [
-              "api-reference/endpoint/user/users-overview",
-              "api-reference/endpoint/user/create-user",
-              "api-reference/endpoint/user/get-all-users",
-              "api-reference/endpoint/user/get-user-by-id",
-              "api-reference/endpoint/user/get-user-by-email",
-              "api-reference/endpoint/user/get-user-by-wallet",
-              "api-reference/endpoint/user/get-user-by-custom-auth",
-              "api-reference/endpoint/user/delete-user",
-              "api-reference/endpoint/user/update-user-custom-metadata",
-              "api-reference/endpoint/user/pregenerate-user-wallets"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Applications",
-        "groups": [
-          {
-            "group": "App Management",
-            "pages": [
-              "api-reference/endpoint/apps-overview",
-              "api-reference/endpoint/get-app",
-              "api-reference/endpoint/create-app",
-              "api-reference/endpoint/update-app",
-              "api-reference/endpoint/delete-app",
-              "api-reference/endpoint/list-apps"
-            ]
+            "pages": ["api-reference/endpoint/user/users-overview"]
           }
         ]
       },
@@ -94,7 +122,7 @@
         "groups": [
           {
             "group": "Wallet Management",
-            "pages": ["api-reference/endpoint/wallets"]
+            "pages": ["api-reference/endpoint/wallets/wallet-overview"]
           }
         ]
       },
@@ -103,24 +131,7 @@
         "groups": [
           {
             "group": "Policies",
-            "pages": ["api-reference/endpoint/policies"]
-          },
-          {
-            "group": "Policy Rules",
-            "pages": ["api-reference/endpoint/policy-rules"]
-          }
-        ]
-      },
-      {
-        "tab": "Security",
-        "groups": [
-          {
-            "group": "Key Quorums",
-            "pages": ["api-reference/endpoint/key-quorums"]
-          },
-          {
-            "group": "Dashboard",
-            "pages": ["api-reference/endpoint/dashboard"]
+            "pages": ["api-reference/endpoint/policies/policies-overview"]
           }
         ]
       }
@@ -128,39 +139,46 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "anchor": "Github",
+          "href": "https://github.com/catalogfi",
           "icon": "book-open-cover"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
+          "anchor": "Website",
+          "href": "https://privy.staging.jheb.com",
+          "icon": "globe"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Community",
+          "href": "https://discord.com/invite/dZwSjh9922",
+          "icon": "discord"
         }
       ]
     }
   },
+
   "logo": {
     "light": "/logo/light-logo.svg",
     "dark": "/logo/dark-logo.svg"
   },
   "navbar": {
-    "links": [],
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@catalog.fi"
+      }
+    ],
     "primary": {
       "type": "button",
-      "label": "Explorer",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Dashboard",
+      "href": "https://privy.staging.jheb.com/account"
     }
   },
   "footer": {
     "socials": {
       "x": "https://x.com/catalogfi",
-      "github": "https://github.com/catalogfi"
+      "github": "https://github.com/catalogfi",
+      "linkedin": "https://linkedin.com/company/catalogfi"
     }
   }
 }

@@ -1,0 +1,200 @@
+---
+title: "Configure login methods"
+description: "Set up authentication methods for your Catalog application"
+---
+
+If you plan on using Catalog for user onboarding, you'll need to configure the login methods you want to use in your app. All client SDKs require at least one login method to be enabled - follow the steps below to set up different options for your users!
+
+## Basic login methods
+
+For most apps, we recommend either including alternative login options alongside the following, or enabling Multi-Factor Authentication. This ensures broad accessibility across all regions and that users can continue accessing their accounts in the event that they lose access to one login method.
+
+<AccordionGroup>
+  <Accordion title="Email login">
+    Catalog enables your users to log in via email or link verified email addresses to their account. You can enable email login and linking via the Authentication page of the dashboard.
+
+    ### One-Time Password Authentication
+
+    When a user attempts to log in with their email, a one-time password (OTP) will be sent to their email address. This password is valid for 10 minutes and must be entered to complete the authentication process.
+
+    ### Allow/disallow `+` in email addresses
+
+    You can configure whether to allow email addresses containing the + character in the Authentication page of the dashboard. This is useful for users who want to use email aliases.
+
+    <Info>
+      Allowing + in email addresses enables users to create multiple accounts using email aliases with a single base email address. Consider your application's security requirements when configuring this option.
+    </Info>
+
+  </Accordion>
+
+  <Accordion title="SMS login">
+    Catalog enables your users to log in via SMS or link verified phone numbers to their account. You can enable SMS login and linking via the **Authentication** page of the dashboard.
+
+    ### One-Time Password Authentication
+
+    Similar to email authentication, when a user attempts to log in via SMS, a one-time password (OTP) will be sent to their phone number. This password is valid for 10 minutes and must be entered to complete the authentication process.
+
+    ### US and Canada support
+
+    US and Canada support is included at no additional cost on the Core, Scale, and Enterprise plans. You can enable access to US and Canada SMS via the **Authentication** page of the dashboard.
+
+    If you enable SMS login, you may be responsible for additional charges per SMS sent. Underlying Twilio network costs will be passed through directly. See Twilio's pricing page here.
+
+    ### International region support
+
+    You can request access to international SMS by reaching out to **[email protected]**. By default, Catalog supports the following regions for the international SMS plan:
+
+    Region support is subject to change. If you would like to request access to additional SMS regions for your account, please reach out to [email protected]!
+
+  </Accordion>
+
+  <Accordion title="Wallet login">
+    Catalog supports blockchain wallet-based authentication methods that allow users to securely connect using their existing wallets.
+
+    ### Supported wallet types
+
+    Currently, Catalog supports both **Sign in with Ethereum (SIWE)** and **Sign in with Solana (SIWS)** to authenticate your user into the application with any EVM or SVM compatible wallet.
+
+    We're actively working to expand our support for other networks, such as Bitcoin, Sui, etc. Interested in a specific network that isn't currently supported? Contact us at [email protected] to inquire about additional chain support or to discuss your specific use case requirements.
+
+    ### Restrict Users to a Single Wallet
+
+    You can enable the **`Restrict users to linking a single third-party wallet`** option for your application. When enabled, users can only link one wallet to their account, preventing potential confusion or security issues that might arise from multiple linked wallets.
+
+  </Accordion>
+</AccordionGroup>
+
+## Social providers
+
+Catalog allows you to log users into their accounts with existing social accounts, such as Google, Twitter, Farcaster, Telegram, and more! Follow the steps below to enable different social account login methods for your users.
+
+<Info>
+  Google OAuth login may not work in in-app browsers (IABs), such as those
+  embedded in social apps, due to Google's restrictions in these environments.
+  Other OAuth providers are generally unaffected.
+</Info>
+
+<AccordionGroup>
+  <Accordion title="OAuth login methods (Google, Twitter, etc.)">
+    Catalog allows you to log users in with their existing social accounts via the OAuth 2.0 protocol. Catalog currently supports many of the most popular OAuth providers (Google, Twitter, etc.) — follow the guide below in order to enable these login methods for your application.
+
+    ### Default vs custom credentials
+
+    You can enable OAuth (social) logins quickly by just toggling it on in the Dashboard page. This will use default OAuth credentials that the Catalog team has configured with each provider. However, best practice is to **configure your own app's OAuth credentials for each account type.**
+
+    **Configuring your own OAuth credentials has many benefits:**
+
+    - Your app has more control over security and resiliency.
+    - Your users will see your branding on the social login provider's authentication screen.
+
+    **Just getting started with Catalog?** We recommend you complete your integration in development using Catalog's default credentials first. Before going to production, you can easily swap in your own credentials!
+
+    ### Configure your OAuth credentials
+
+    Follow this guide to configure your own app's OAuth credentials.
+
+    #### 1. Setup your OAuth apps for each provider
+
+    To configure OAuth credentials for a given provider, first create an OAuth app with your chosen provider, following the provider-specific instructions below. For all providers, during setup, specify Catalog's OAuth callback endpoint as your redirect URI:
+
+    ```
+    https://auth.catalog.fi/api/v1/oauth/callback
+    ```
+
+    #### 2. Configure your credentials with Catalog
+
+    Your custom credentials will go live to all your users as soon as you save them in the dashboard. We highly encourage you to test them in a development app before setting them for your production app.
+
+    Navigate to the **Login methods** page on the Catalog dashboard by selecting your app and clicking Login Methods on the side bar. Click on the socials tab to see the social providers. Enter the OAuth credentials under the drop down for you set up. If a provider does not have a drop down, it does not currently support configuring your own credentials.
+
+    #### 3. Configure token return and custom scopes
+
+    For any OAuth login method for which you configure your own credentials, you are able to have the user's OAuth and Refresh access tokens returned to your application's front by toggling `Return OAuth tokens` and making use of the useOAuthTokens hook. If you allow for your application to return OAuth tokens to the front-end, you are also able to configure custom scopes for the OAuth authorization flow, so that the OAuth token returned can be authorized to make API requests beyond the standard scope (such as writes, or authorized access to more granular user data).
+
+    It is important that OAuth and refresh tokens are highly sensitive tokens that should be handled and stored in a secure fashion, inaccessible to any other third-party systems. Contact us if you have questions or would like guidance on token management best practices.
+
+    ### Notes
+
+    - You can update them anytime, with the exception of Apple, LinkedIn, and TikTok.
+    - You can set and save credentials for disabled providers. These credentials will be stored and will be used for that provider's requests once you enable it.
+    - If you are experiencing an issue after setting your own credentials, you can roll back to using Catalog's default credentials by removing your own from the configuration screen. We only recommend doing this if you are experiencing an issue as moving to use your own credentials is best practice. This will not work for Apple, LinkedIn, or TikTok if you have existing users.
+
+  </Accordion>
+
+  <Accordion title="Telegram login">
+    Follow this guide to create a telegram bot. After creating a Telegram bot, you must set your domain using the `/setdomain` command in the `@BotFather` chat. You will need to provide the following to Catalog via the Catalog Dashboard upon completion:
+
+    - Bot token (eg: `1234567890:AzByCxDwEvFuGtHsIr1k2M4o5Q6s7U8w9Y0`)
+    - Bot handle (eg: `@MyBot_bot`)
+
+    Note that when configuring Telegram login:
+
+    - Your domain must be configured as your bot's allowed domain.
+    - If you have CSP enforcement, you'll need to update these directives:
+      - `script-src` must allow `https://telegram.org` in order to be able to download Telegram's widget script.
+      - `frame-src` must allow `https://oauth.telegram.org` in order to be able to render Telegram's widget iframe.
+
+    To use your app as a Telegram Mini-App in the Telegram web client, add `http://web.telegram.org` and `https://web.telegram.org` to your allowed domains in the dashboard Settings page.
+
+    Telegram login requires developers to create a Telegram bot with a bot secret. This bot secret controls the Telegram bot and is also used as a symmetric key for authentication. Control over this key enables a developer to sign over authentication data, meaning compromise of this key puts your users (and their accounts) at risk. **Securing this symmetric key is essential for the security of all of your app's Telegram logins.**
+
+    Since you need to set your bot's allowed domain you'll need to use a tunneling tool for local development such as Cloudflare tunnels or ngrok.
+
+  </Accordion>
+
+  <Accordion title="Farcaster login">
+    **Farcaster** is a sufficiently decentralized social network whose core social graph is stored on-chain. Users can choose how content they create is stored and it enables unique, composable experiences by enabling users to link their accounts with a wallet of their choosing. **Catalog enables your users to easily log in to your app using their Farcaster account.** This means you can easily integrate Catalog with Farcaster to compose experiences with a user's existing social graph or network.
+
+    ### Automatically link connected wallets on when logging in with Farcaster
+
+    Farcaster accounts generally have associated embedded and verified addresses. By toggling this option, upon logging in with Farcaster, Catalog will also add the associated wallet addresses as linked external wallets of the authenticated user.
+
+  </Accordion>
+</AccordionGroup>
+
+## Third-Party auth provider
+
+If you plan to use Catalog with a custom authentication provider like Auth0, Stytch, or Firebase, use the **Third-Party auth** page of the dashboard to register the required information from your provider. Otherwise, skip this guide!
+
+<Info>
+  **Don't see the Third-Party Auth page in the Dashboard?** Please request
+  access to this feature via the **Plugins** tab on the Integrations page.
+</Info>
+
+<AccordionGroup>
+  <Accordion title="JWT Verification Details">
+    To verify your user's auth status, Catalog requires a verification key to ensure the JWTs received by Catalog are valid. You must provide **one** of the following:
+
+    - **JWKS endpoint**: If your provider uses JWKS to sign JWTs, provide a JWKS endpoint to allow Catalog to get your auth provider's JWT public key.
+
+    ```
+    {
+      "keys": [
+        {
+          // JWKS
+        }
+      ]
+    }
+    ```
+
+    - **Public Verification Key**: If your provider uses a single key to sign JWTs, provide the corresponding public key certificate used for verification.
+
+    For Auth0, you can follow these instructions to get these details.
+
+  </Accordion>
+
+{" "}
+
+<Accordion title="JWT ID Claim">
+  Enter the claim from your user's JWT that contains the user's unique ID. **In
+  most access tokens and identity tokens, this is the sub claim.**
+</Accordion>
+
+  <Accordion title="JWT `aud` Claim (Optional)">
+    `aud` accepts multiple values. If any of the `aud` values in the JWT are included in the set of allowed `aud` values, the JWT will be successfully verified.
+  </Accordion>
+</AccordionGroup>
+
+### Why does Catalog need this information?
+
+When a user logs into your app, your auth provider issues them an **access** and/or an **identity** token to represent their auth status. To provision your user's embedded wallet, **Catalog must validate this token to authenticate your user.** Catalog will verify both the token's signature and its expiration time (exp claim).

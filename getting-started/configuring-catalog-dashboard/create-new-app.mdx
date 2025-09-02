@@ -1,0 +1,106 @@
+---
+title: "Create new app"
+description: "Learn how to create and configure a new application in the Catalog Dashboard"
+---
+
+Creating a new application in the Catalog Dashboard is the first step to integrating Catalog into your product. Each application represents a separate integration with its own configuration, and users.
+
+<Warning>
+  Catalog does not store your app secret. Lost app secrets cannot be recovered
+  and must be re-generated.
+</Warning>
+
+## Creating your application
+
+### Step 1: Navigate to Applications
+
+1. Log into your [Catalog Dashboard](https://dashboard.catalog.fi)
+2. Click on "Applications" in the left sidebar
+3. Click "Create New App" button
+
+### Step 2: Basic Information
+
+Fill in the basic information for your application:
+
+- **App Name**: A descriptive name for your application (e.g., "My DeFi App")
+- **App Description**: Brief description of what your app does
+- **App URL**: Your application's domain (e.g., `https://myapp.com`)
+- **App Icon**: Upload a logo or icon for your application
+
+### Step 3: Configuration
+
+Configure the basic settings for your application:
+
+- **Environment**: Choose between Development and Production
+- **Default Chain**: Select the primary blockchain for your application
+- **Wallet Creation**: Enable/disable automatic wallet creation for new users
+- **Social Logins**: Choose which social login providers to enable
+
+### Step 4: Advanced Settings
+
+Configure advanced features:
+
+- **Custom Branding**: Upload custom logos and colors
+- **Security Policies**: Set up wallet security and transaction limits
+- **Webhooks**: Configure webhook endpoints for real-time notifications
+
+## Application settings
+
+### General Settings
+
+- **App ID**: Unique identifier for your application
+- **App Secret**: Secret key for server-side operations
+- **Public Key**: Public key for client-side operations
+
+### Security Settings
+
+- **Allowed Domains**: Restrict which domains can use your app
+- **Rate Limiting**: Configure request rate limits
+- **Session Timeout**: Set how long user sessions remain active
+
+### Wallet Settings
+
+- **Default Wallet Type**: Choose between embedded and external wallets
+- **Multi-chain Support**: Enable support for multiple blockchains
+- **Gas Optimization**: Configure gas fee optimization settings
+
+## Environment management
+
+### Development Environment
+
+- Used for testing and development
+- Separate user base from production
+- More lenient rate limits
+- Debug logging enabled
+
+### Production Environment
+
+- Used for live applications
+- Stricter security policies
+- Production rate limits
+- Optimized for performance
+
+## Next steps
+
+After creating your application:
+
+1. [Configure login methods](/getting-started/configuring-catalog-dashboard/configure-login-methods) for user authentication
+2. [Set up app clients](/getting-started/configuring-catalog-dashboard/app-clients) for different platforms
+3. Test your integration in development mode
+4. Deploy to production when ready
+
+<Card
+  title="Configure login methods"
+  icon="lock"
+  href="/getting-started/configuring-catalog-dashboard/configure-login-methods"
+>
+  Set up authentication for your app
+</Card>
+
+## Best practices
+
+- **Use descriptive names**: Choose app names that clearly identify your product
+- **Secure your secrets**: Never expose your app secret in client-side code
+- **Test thoroughly**: Use the development environment for all testing
+- **Monitor usage**: Keep track of user activity and wallet usage
+- **Update regularly**: Keep your app configuration up to date with new features

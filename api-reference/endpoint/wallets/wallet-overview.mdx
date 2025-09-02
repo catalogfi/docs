@@ -1,0 +1,221 @@
+---
+title: "Overview"
+description: "Manage blockchain wallets, execute transactions, and handle wallet operations through our comprehensive Wallets API"
+---
+
+# Wallet Management
+
+Catalog API provides comprehensive endpoints for managing blockchain wallets, executing transactions, and handling various wallet operations across multiple blockchains.
+
+## Quick Start - Wallet Management
+
+<Steps>
+  <Step title="Create Wallet">Create a new wallet for your app</Step>
+  <Step title="Get Wallet Details">
+    Retrieve wallet information and balance
+  </Step>
+  <Step title="Execute Transactions">Send transactions and sign messages</Step>
+  <Step title="Monitor Activity">Track wallet transactions and balance</Step>
+</Steps>
+
+## Wallet Endpoints Overview
+
+### Core Wallet Management
+
+- **Create Wallet** - Create a new wallet for your app with optional configuration
+- **Get Wallet** - Retrieve detailed information about a specific wallet
+- **Update Wallet** - Update wallet configuration, tags, and policies
+- **Get Wallets** - List all wallets with optional filtering and pagination
+
+### Wallet Operations
+
+- **Get Wallet Balance** - Retrieve current balance across different chains
+- **Get Wallet Transactions** - View transaction history with filtering
+- **Export Wallet** - Export wallet data for backup or migration
+- **Wallet RPC Operations** - Execute various RPC operations (signing, transactions, etc.)
+
+### Supported Blockchains
+
+- **Ethereum** - Full support for Ethereum and EVM-compatible chains
+- **Solana** - Complete Solana wallet operations
+- **Multi-Chain** - Cross-chain wallet management and operations
+
+## Authentication
+
+Wallet endpoints use different authentication methods depending on the operation:
+
+- **Bearer Token** - For most wallet management operations
+- **Basic Auth** - For certain administrative operations
+- **App-Level Auth** - For app-specific wallet operations
+
+## Common Headers
+
+| Header           | Type   | Required | Description                |
+| ---------------- | ------ | -------- | -------------------------- |
+| `Authorization`  | string | Yes      | Bearer token or Basic auth |
+| `catalog-app-id` | string | Yes      | Your Catalog app ID        |
+| `Content-Type`   | string | Yes      | application/json           |
+
+## Response Format
+
+Wallet endpoints return JSON responses with consistent structure:
+
+```json
+{
+  "id": "wallet_123",
+  "address": "0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6",
+  "chain": "ethereum",
+  "balance": "0.1",
+  "created_at": 1752036285,
+  "configuration": {
+    // Wallet configuration details
+  }
+}
+```
+
+## Error Handling
+
+Wallet endpoints use standard HTTP status codes:
+
+- **200** - Success
+- **400** - Bad Request (invalid parameters)
+- **401** - Unauthorized (invalid credentials)
+- **403** - Forbidden (insufficient permissions)
+- **404** - Wallet not found
+- **429** - Rate limit exceeded
+
+## Best Practices
+
+### Wallet Security
+
+- **Secure Storage** - Store wallet credentials securely
+- **Access Control** - Implement proper access controls for wallet operations
+- **Audit Logging** - Log all wallet operations for security monitoring
+- **Backup Strategy** - Regularly backup wallet data
+
+### Transaction Management
+
+- **Gas Estimation** - Always estimate gas before sending transactions
+- **Nonce Management** - Handle transaction nonces properly
+- **Error Handling** - Implement robust error handling for failed transactions
+- **Confirmation Monitoring** - Monitor transaction confirmations
+
+### Performance
+
+- **Caching** - Cache wallet balances and frequently accessed data
+- **Batch Operations** - Use batch operations when possible
+- **Rate Limiting** - Respect API rate limits
+- **Efficient Queries** - Use specific endpoints rather than retrieving all data
+
+## Complete Example
+
+Here's a complete example of wallet management:
+
+```javascript
+// Create a new wallet
+const createWallet = async (appId, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/apps/${appId}/wallets`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "catalog-app-id": "your-catalog-app-id",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chain_type: "ethereum",
+        user_id: "user_123",
+      }),
+    }
+  );
+  return response.json();
+};
+
+// Get wallet details
+const getWallet = async (walletId, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/wallets/${walletId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "catalog-app-id": "your-catalog-app-id",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.json();
+};
+
+// Get wallet balance
+const getWalletBalance = async (walletId, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/wallets/${walletId}/balance`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "catalog-app-id": "your-catalog-app-id",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.json();
+};
+
+// Execute a transaction
+const sendTransaction = async (walletId, transaction, accessToken) => {
+  const response = await fetch(
+    `https://api.catalog.fi/v1/wallets/${walletId}/rpc`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "catalog-app-id": "your-catalog-app-id",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        method: "eth_sendTransaction",
+        caip2: "eip155:1",
+        chain_type: "ethereum",
+        params: {
+          transaction: {
+            to: transaction.to,
+            value: transaction.value,
+            gas_limit: transaction.gasLimit,
+          },
+        },
+      }),
+    }
+  );
+  return response.json();
+};
+
+// Usage example
+const manageWallet = async (appId, accessToken) => {
+  // Create a new wallet
+  const newWallet = await createWallet(appId, accessToken);
+
+  // Get wallet details
+  const walletDetails = await getWallet(newWallet.id, accessToken);
+
+  // Get balance
+  const balance = await getWalletBalance(newWallet.id, accessToken);
+
+  // Send a transaction
+  const txResult = await sendTransaction(
+    newWallet.id,
+    {
+      to: "0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6",
+      value: "0.001",
+      gasLimit: "21000",
+    },
+    accessToken
+  );
+
+  return { newWallet, walletDetails, balance, txResult };
+};
+```
+
+This comprehensive wallet management system allows you to fully control blockchain wallets and execute transactions programmatically across multiple blockchains.

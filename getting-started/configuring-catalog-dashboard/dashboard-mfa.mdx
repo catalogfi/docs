@@ -1,0 +1,218 @@
+---
+title: "Dashboard MFA"
+description: "Enable multi-factor authentication to secure your Catalog Dashboard access"
+---
+
+Multi-factor authentication (MFA) adds an extra layer of security to your Catalog Dashboard account. By requiring a second form of verification in addition to your password, MFA helps protect your account from unauthorized access.
+
+## Why enable MFA?
+
+### Security Benefits
+
+- **Prevent Unauthorized Access**: Even if someone gets your password, they can't access your account without the second factor
+- **Protect Sensitive Data**: Your dashboard contains application configurations, user data, and API keys
+- **Compliance**: Many organizations require MFA for security compliance
+- **Peace of Mind**: Know that your account is protected with industry-standard security
+
+### Risk Mitigation
+
+- **Password Breaches**: Protects against compromised passwords from data breaches
+- **Phishing Attacks**: Prevents access even if you fall for a phishing scam
+- **Shared Credentials**: Reduces risk if credentials are accidentally shared
+- **Brute Force Attacks**: Adds protection against automated login attempts
+
+## Supported MFA methods
+
+### Authenticator Apps
+
+Use time-based one-time passwords (TOTP) with authenticator apps.
+
+**Supported Apps:**
+
+- Google Authenticator
+- Authy
+- Microsoft Authenticator
+- 1Password
+- LastPass Authenticator
+- Any TOTP-compatible app
+
+**Benefits:**
+
+- Works offline
+- No phone number required
+- Industry standard
+- Compatible with most authenticator apps
+
+### SMS/Text Messages
+
+Receive one-time codes via text message.
+
+**Benefits:**
+
+- Easy to set up
+- No additional app required
+- Familiar to most users
+
+**Considerations:**
+
+- Requires phone number
+- Vulnerable to SIM swapping
+- May not work in all locations
+
+### Email Codes
+
+Receive one-time codes via email.
+
+**Benefits:**
+
+- No phone number required
+- Works with existing email
+- Easy to set up
+
+**Considerations:**
+
+- Requires email access
+- May be slower than other methods
+- Email account security is critical
+
+## Setting up MFA
+
+### Step 1: Access MFA Settings
+
+1. Log into your [Catalog Dashboard](https://dashboard.catalog.fi)
+2. Go to "Settings" → "Security"
+3. Click "Enable Multi-Factor Authentication"
+
+### Step 2: Choose MFA Method
+
+Select your preferred MFA method:
+
+#### Authenticator App Setup
+
+1. **Scan QR Code**: Use your authenticator app to scan the QR code
+2. **Enter Code**: Enter the 6-digit code from your authenticator app
+3. **Verify Setup**: Confirm the setup by entering another code
+
+#### SMS Setup
+
+1. **Enter Phone Number**: Add your mobile phone number
+2. **Verify Number**: Enter the code sent via SMS
+3. **Confirm Setup**: Confirm the setup is complete
+
+#### Email Setup
+
+1. **Enter Email**: Confirm your email address
+2. **Verify Email**: Enter the code sent via email
+3. **Confirm Setup**: Confirm the setup is complete
+
+### Step 3: Backup Codes
+
+Generate backup codes for emergency access:
+
+1. **Generate Codes**: Create a set of backup codes
+2. **Save Securely**: Store codes in a secure location
+3. **Test Access**: Verify you can access your account with a backup code
+
+### Step 4: Complete Setup
+
+1. **Review Settings**: Review your MFA configuration
+2. **Enable MFA**: Activate multi-factor authentication
+3. **Test Login**: Log out and test the new login process
+
+## Managing MFA
+
+### Adding Additional Methods
+
+You can add multiple MFA methods for redundancy:
+
+1. **Go to Security Settings**: Navigate to MFA settings
+2. **Add Method**: Click "Add Another Method"
+3. **Follow Setup**: Complete the setup process for the new method
+4. **Verify**: Test the new method works correctly
+
+### Changing MFA Methods
+
+To change your primary MFA method:
+
+1. **Add New Method**: Set up the new method first
+2. **Test New Method**: Verify it works correctly
+3. **Remove Old Method**: Remove the old method
+4. **Update Preferences**: Set the new method as primary
+
+### Disabling MFA
+
+To disable MFA (not recommended):
+
+1. **Access Settings**: Go to MFA settings
+2. **Confirm Identity**: Verify your identity with current MFA
+3. **Disable**: Click "Disable MFA"
+4. **Confirm**: Confirm the action
+
+## Best practices
+
+### Security
+
+- **Use Authenticator Apps**: Prefer authenticator apps over SMS when possible
+- **Multiple Methods**: Set up multiple MFA methods for redundancy
+- **Backup Codes**: Always generate and securely store backup codes
+- **Regular Updates**: Keep MFA methods and backup codes current
+
+### Team Management
+
+- **Require MFA**: Enforce MFA for all team members
+- **Training**: Train team members on MFA best practices
+- **Documentation**: Document MFA procedures for your team
+- **Emergency Procedures**: Have procedures for MFA-related issues
+
+### Monitoring
+
+- **Login Alerts**: Set up alerts for unusual login attempts
+- **MFA Changes**: Monitor when MFA settings are changed
+- **Failed Attempts**: Track failed MFA attempts
+- **Account Activity**: Regularly review account activity
+
+## Troubleshooting
+
+### Common Issues
+
+- **Lost Phone**: Use backup codes or recovery email
+- **Wrong Time**: Ensure your device time is synchronized
+- **App Issues**: Try reinstalling your authenticator app
+- **Network Issues**: Check internet connection for SMS/email
+
+### Support
+
+For MFA-related issues:
+
+- Check the [MFA troubleshooting guide](/guides/mfa-troubleshooting)
+- Review [security best practices](/guides/security)
+- Contact [support](mailto:support@catalog.fi)
+
+## Next steps
+
+After enabling MFA:
+
+1. Test your login process thoroughly
+2. Set up backup codes and recovery options
+3. Train your team on MFA procedures
+4. Consider enabling MFA for all team members
+
+<Card title="Security Best Practices" icon="shield" href="/guides/security">
+  Learn more about securing your account
+</Card>
+
+## Compliance and standards
+
+### Industry Standards
+
+- **NIST Guidelines**: Follows NIST cybersecurity framework
+- **SOC 2**: Supports SOC 2 compliance requirements
+- **GDPR**: Helps meet GDPR security requirements
+- **ISO 27001**: Aligns with ISO 27001 security standards
+
+### Regulatory Requirements
+
+- **Financial Services**: Meets financial industry security requirements
+- **Healthcare**: Supports healthcare security compliance
+- **Government**: Meets government security standards
+- **Enterprise**: Supports enterprise security policies

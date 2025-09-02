@@ -1,0 +1,95 @@
+---
+title: "App clients"
+description: "Configure platform-specific client settings for your Catalog application"
+---
+
+App clients allow you to create configure specific settings for different consumers/platforms for your app, including mobile apps, web apps, and more. To add a client, go to the Configuration > App settings page > Clients tab, and find the "Add app client" button.
+
+This step is optional if you're using the React SDK. App clients are required for all other mobile and non-web platforms to allow your app to interact with the Catalog API.
+
+<Tabs>
+  <Tab title="Web Environments">
+    ### Cookies
+
+    Once you enable HttpOnly cookies on your app and add an app domain, Catalog will automatically store a user's token as an HttpOnly cookie on the app domain. You can use app clients to enable or disable cookies for different environments. [Learn more about cookies here!](/docs/cookies).
+
+    ### Allowed origins
+
+    Each app client can have a different set of allowed origins. You can set allowed origins on your app client. Note that if cookies are enabled, the app's domain must be one of the allowed origins. [Learn more about allowed origins here!](/docs/allowed-origins).
+
+    ### Session duration
+
+    You can set the session duration for each app client. The session duration is the number of days that a user's session will last before they are logged out.
+
+    ### Apple OAuth Client ID override
+
+    If your application uses Apple as a social login method, you can specify a different client ID depending on which environment your application is running in. In order to use Apple login on an iOS app, the `Client ID` must be the Apple OAuth `bundleId`. All other platforms will require the `Client ID` to be the `Identifier` of the Sign in with Apple service.
+
+  </Tab>
+  <Tab title="Mobile/Other Environments">
+    ### Allowed app identifiers
+
+    This section is for enforcing secure usage of the Catalog App ID by restricting which mobile apps can use it based on their application identifiers. An empty list will deny all requests. At least one identifier must be configured for the React Native SDK.
+
+    <Tabs>
+      <Tab title="React Native">
+        **Unique identifiers:**
+        - For iOS apps, this is the `bundleIdentifier`.
+        - For Android apps, this is the `package`.
+
+        ```json
+        "ios": {
+          "bundleIdentifier": "com.myorg.app"
+        }
+        ```
+      </Tab>
+      <Tab title="Swift">
+        Content for Swift SDK configuration.
+      </Tab>
+      <Tab title="Android">
+        Content for Android SDK configuration.
+      </Tab>
+      <Tab title="Unity">
+        Content for Unity SDK configuration.
+      </Tab>
+      <Tab title="Flutter">
+        Content for Flutter SDK configuration.
+      </Tab>
+    </Tabs>
+
+    ### Allowed URL schemes
+
+    To use Catalog's social login flows or integrate with a global wallet, a URL scheme (e.g., `myapp://`) must be registered. An empty list will reject all redirects. At least one URL scheme must be registered.
+
+    <Info>
+      A full URL scheme (e.g., `myapp://shire`) allows only that specific path. A scheme-only (e.g., `myapp`) supports all paths.
+    </Info>
+
+    <Tabs>
+      <Tab title="React Native">
+        Copy your application's URL scheme from `app.json` or `app.config.ts` and register it in the app client settings.
+
+        <Warning>
+          For development only if you are using Expo Go, enter `exp` as the URL scheme for the Expo Go app.
+        </Warning>
+      </Tab>
+      <Tab title="Swift">
+        First, register your URL scheme in your Xcode project. If you're unsure how, you can follow **these steps**. Then, use the URL scheme you registered in the app client settings.
+      </Tab>
+      <Tab title="Android">
+        Add your URL scheme in your Android manifest. If you're unsure how, you can follow this guide. Then, use the URL scheme you registered in the app client settings.
+      </Tab>
+      <Tab title="Unity">
+        Setup deeplinking for non-web platforms using your allowed URL scheme.
+      </Tab>
+    </Tabs>
+    ### Apple OAuth Client ID override
+
+    If your application uses Apple as a social login method, you can specify a different client ID depending on which environment your application is running in. In order to use Apple login on an iOS app, the `Client ID` must be the Apple OAuth `bundleId`. All other platforms will require the `Client ID` to be the `Identifier` of the Sign in with Apple service.
+
+    ### Session duration
+
+    You can set the session duration for each app client. The session duration is the number of days that a user's session will last before they are logged out.
+
+  </Tab>
+</Tabs>
